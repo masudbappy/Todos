@@ -26,8 +26,8 @@
             android:layout_margin="4dp"
             android:layout_toEndOf="@+id/imageCatIcon"
             android:layout_toRightOf="@+id/imageCatIcon"
-            android:singleLine="true"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:text="Dummy Text"/>
 
     </RelativeLayout>
 </layout>
