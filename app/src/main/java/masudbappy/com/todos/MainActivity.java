@@ -16,11 +16,11 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
 
     String[] itemname = {
-      "Get theaters tickets",
+      "Wake up 5:30",
             "Order pizza for tonight",
-            "Buy groceries",
-            "Running session at 19.30",
-            "Call Uncle Sam"
+            "Buy Something",
+            "Hang out at 5pm",
+            "Watch movies"
     };
 
     @Override
