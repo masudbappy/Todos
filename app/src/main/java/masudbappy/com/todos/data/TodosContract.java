@@ -11,7 +11,7 @@ public class TodosContract {
         public static final String TABLE_NAME = "todos";
         //column field names
         public static final String _ID = BaseColumns._ID;
-        public static final String COUMN_TEXT = "text";
+        public static final String COLUMN_TEXT = "text";
         public static final String COLUMN_CREATED = "created";
         public static final String COLUMN_EXPIRED = "expired";
         public static final String COLUMN_DONE = "done";
