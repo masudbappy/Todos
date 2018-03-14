@@ -1,5 +1,6 @@
 package masudbappy.com.todos.data;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
@@ -7,7 +8,14 @@ import android.provider.BaseColumns;
  */
 
 public class TodosContract {
+
+    public static final String CONTENT_AUTHORITY = "masudbappy.com.todos.todosprovider";
+    public static final String PATH_TODOS = "todos";
+    public static final String PATH_CATEGORIES = "categories";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+
     public static final class TodosEntry implements BaseColumns{
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_TODOS);
         public static final String TABLE_NAME = "todos";
         //column field names
         public static final String _ID = BaseColumns._ID;
@@ -20,6 +28,8 @@ public class TodosContract {
     }
 
     public static final class CategoryEntry implements BaseColumns{
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI,PATH_TODOS);
+
         public static final String TABLE_NAME = "categories";
 
         public static final String _ID = BaseColumns._ID;

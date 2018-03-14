@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,8 +18,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.xml.sax.ext.DeclHandler;
-
 import masudbappy.com.todos.data.DatabaseHelper;
 import masudbappy.com.todos.data.TodosContract;
 
@@ -32,20 +30,25 @@ public class MainActivity extends AppCompatActivity {
             "Hang out at 5pm",
             "Watch movies"
     };
+    private void createCategory(){
+        ContentValues values = new ContentValues();
+        values.put(TodosContract.CategoryEntry.COLUMN_DESCRIPTION
+        ,"Work");
+        Uri uri = getContentResolver().insert(TodosContract.CategoryEntry.CONTENT_URI, values);
+        Log.d("MainActivity", "Inserted category " + uri);
+    }
     private void readData(){
-        DatabaseHelper helper = new DatabaseHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
         String[] projection = {
                 TodosContract.TodosEntry.COLUMN_TEXT,
                 TodosContract.TodosEntry.COLUMN_CREATED,
                 TodosContract.TodosEntry.COLUMN_EXPIRED,
                 TodosContract.TodosEntry.COLUMN_DONE,
-                TodosContract.TodosEntry.COLUMN_CATEGORY,
+                TodosContract.CategoryEntry.COLUMN_DESCRIPTION
         };
         String selection = TodosContract.TodosEntry.COLUMN_CATEGORY + " = ? ";
         String[] selectionArgs = {"1"};
-        Cursor c = db.query(TodosContract.TodosEntry.TABLE_NAME,
-                projection,selection,selectionArgs,null,null,null);
+        Cursor c = getContentResolver().query(TodosContract.TodosEntry.CONTENT_URI,
+                projection,null,null,null);
         int i = c.getCount();
         Log.d("Record Count", String.valueOf(i));
         String roContent = "";
@@ -85,9 +88,10 @@ public class MainActivity extends AppCompatActivity {
 //        DatabaseHelper helper = new DatabaseHelper(this);
 //        SQLiteDatabase db = helper.getReadableDatabase();
 //        createTodo();
-//        readData();
-        updateTodo();
-        deleteTodo();
+        readData();
+//        updateTodo();
+//        deleteTodo();
+//        createCategory();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ListView lv = (ListView) findViewById(R.id.lvTodos);
