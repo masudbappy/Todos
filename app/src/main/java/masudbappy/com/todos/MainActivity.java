@@ -2,6 +2,7 @@ package masudbappy.com.todos;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -9,12 +10,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import org.xml.sax.ext.DeclHandler;
 
 import masudbappy.com.todos.data.DatabaseHelper;
 import masudbappy.com.todos.data.TodosContract;
@@ -28,6 +32,51 @@ public class MainActivity extends AppCompatActivity {
             "Hang out at 5pm",
             "Watch movies"
     };
+    private void readData(){
+        DatabaseHelper helper = new DatabaseHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String[] projection = {
+                TodosContract.TodosEntry.COLUMN_TEXT,
+                TodosContract.TodosEntry.COLUMN_CREATED,
+                TodosContract.TodosEntry.COLUMN_EXPIRED,
+                TodosContract.TodosEntry.COLUMN_DONE,
+                TodosContract.TodosEntry.COLUMN_CATEGORY,
+        };
+        String selection = TodosContract.TodosEntry.COLUMN_CATEGORY + " = ? ";
+        String[] selectionArgs = {"1"};
+        Cursor c = db.query(TodosContract.TodosEntry.TABLE_NAME,
+                projection,selection,selectionArgs,null,null,null);
+        int i = c.getCount();
+        Log.d("Record Count", String.valueOf(i));
+        String roContent = "";
+        while (c.moveToNext()){
+            for (i=0; i<=4; i++){
+                roContent += c.getString(i)+ "-";
+            }
+            Log.i("Row " + String.valueOf(c.getPosition()),roContent);
+            roContent = "";
+        }
+        c.close();
+    }
+    private void updateTodo(){
+        int id =1;
+        DatabaseHelper handler = new DatabaseHelper(this);
+        SQLiteDatabase db = handler.getReadableDatabase();
+        String[] args = {String.valueOf(id)};
+        ContentValues values = new ContentValues();
+        values.put(TodosContract.TodosEntry.COLUMN_TEXT,"Call Mr Bond");
+        int numRows = db.update(TodosContract.TodosEntry.TABLE_NAME,values, TodosContract.TodosEntry._ID + " =?",args);
+        Log.d("Update Rows",String.valueOf(numRows));
+        db.close();
+    }
+    private void deleteTodo(){
+        int id =1;
+        DatabaseHelper helper = new DatabaseHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String[] args = {String.valueOf(id)};
+        int numRows = db.delete(TodosContract.TodosEntry.TABLE_NAME, TodosContract.TodosEntry._ID + " =?", args);
+        Log.d("Delete Rows", String.valueOf(numRows));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        DatabaseHelper helper = new DatabaseHelper(this);
 //        SQLiteDatabase db = helper.getReadableDatabase();
-        createTodo();
+//        createTodo();
+//        readData();
+        updateTodo();
+        deleteTodo();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ListView lv = (ListView) findViewById(R.id.lvTodos);
