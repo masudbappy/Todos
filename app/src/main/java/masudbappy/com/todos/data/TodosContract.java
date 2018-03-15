@@ -3,9 +3,6 @@ package masudbappy.com.todos.data;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-/**
- * Created by bappy on 3/14/2018.
- */
 
 public class TodosContract {
 
@@ -28,7 +25,7 @@ public class TodosContract {
     }
 
     public static final class CategoryEntry implements BaseColumns{
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI,PATH_TODOS);
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI,PATH_CATEGORIES);
 
         public static final String TABLE_NAME = "categories";
 

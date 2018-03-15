@@ -23,13 +23,13 @@ import masudbappy.com.todos.data.TodosContract;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] itemname = {
+    /*String[] itemname = {
       "Wake up 5:30",
             "Order pizza for tonight",
             "Buy Something",
             "Hang out at 5pm",
             "Watch movies"
-    };
+    };*/
     private void createCategory(){
         ContentValues values = new ContentValues();
         values.put(TodosContract.CategoryEntry.COLUMN_DESCRIPTION
@@ -88,17 +88,17 @@ public class MainActivity extends AppCompatActivity {
 //        DatabaseHelper helper = new DatabaseHelper(this);
 //        SQLiteDatabase db = helper.getReadableDatabase();
 //        createTodo();
-        readData();
+//        readData();
 //        updateTodo();
 //        deleteTodo();
-//        createCategory();
+        createCategory();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ListView lv = (ListView) findViewById(R.id.lvTodos);
-        lv.setAdapter(new ArrayAdapter<String>(this, R.layout.todos_list_item,
-                    R.id.tvNote, itemname));
+        /*lv.setAdapter(new ArrayAdapter<String>(this, R.layout.todos_list_item,
+                    R.id.tvNote, itemname));*/
         //adds the click event to the listView, reading the content
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Intent intent = new Intent(MainActivity.this, TodoActivity.class);
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("Content",content);
                 startActivity(intent);
             }
-        });
+        });*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
