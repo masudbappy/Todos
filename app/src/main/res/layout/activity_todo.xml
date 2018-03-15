@@ -1,6 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="todo"
+            type="masudbappy.com.todos.model.Todo"  />
+        >
+    </data>
 
     <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +14,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="masudbappy.com.todos.TodoActivity">
+        tools:context="com.example.todos.TodoActivity">
 
         <Spinner
             android:id="@+id/spCategories"
@@ -35,7 +39,8 @@
             android:ems="10"
             android:gravity="top"
             android:inputType="textMultiLine"
-            />
+            android:tag="@{todo.Id}"
+            android:text="@={todo.text}"/>
         <EditText
             android:id="@+id/editExpiryDate"
             android:layout_width="wrap_content"
@@ -45,8 +50,7 @@
             android:layout_alignParentStart="true"
             android:ems="10"
             android:inputType="date"
-            android:text="3/13/2018"
-            />
+            android:text="@={todo.expired}" />
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
@@ -54,7 +58,8 @@
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/editExpiryDate"
             android:layout_toRightOf="@+id/editExpiryDate"
+            android:checked="@={todo.done}"
             android:text="Done" />
 
     </RelativeLayout>
-</LinearLayout>
+</layout>

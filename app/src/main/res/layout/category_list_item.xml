@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-   <!-- <data>
-        <variable name="category" type="com.example.todos.model.Category"/>
-    </data>-->
+    <data>
+        <variable name="category" type="masudbappy.com.todos.model.Category"/>
+    </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,8 +26,10 @@
             android:layout_margin="4dp"
             android:layout_toEndOf="@+id/imageCatIcon"
             android:layout_toRightOf="@+id/imageCatIcon"
-            android:textSize="18sp"
-            android:text="Dummy Text"/>
+            android:singleLine="true"
+            android:tag="@{category.catId}"
+            android:text="@{category.description}"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 </layout>

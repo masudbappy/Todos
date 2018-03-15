@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto">
-    <!--<data>
-        <variable name="categories" type="com.example.todos.model.CategoryList"/>
-        <variable name="category" type="com.example.todos.model.Category"/>
-    </data>-->
+    <data>
+        <variable name="categories" type="masudbappy.com.todos.model.CategoryList"/>
+        <variable name="category" type="masudbappy.com.todos.model.Category"/>
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent" android:layout_height="match_parent"
@@ -13,6 +13,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/insert_new_category"
+            android:text="@={category.description}"
             />
 
         <RelativeLayout
@@ -59,6 +61,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            bind:items="@{categories.ItemList}"
             />
 
 
